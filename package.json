@@ -1,0 +1,28 @@
+{
+  "name": "lyrax-model-library",
+  "version": "1.0.0",
+  "description": "The model library that is used with the LyraX framework.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanillabeach/lyrax-model-library.git"
+  },
+  "keywords": [
+    "PDB",
+    "Molecules",
+    "Proteins"
+  ],
+  "author": "vanillabeach@outlook.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vanillabeach/lyrax-model-library/issues"
+  },
+  "homepage": "https://github.com/vanillabeach/lyrax-model-library#readme",
+  "devDependencies": {
+    "typescript": "^4.8.3"
+  }
+}
