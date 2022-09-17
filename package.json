@@ -1,5 +1,5 @@
 {
-  "name": "lyrax-model-library",
+  "name": "@vanillabeach/lyrax-model-library",
   "version": "1.0.0",
   "description": "The model library that is used with the LyraX framework.",
   "main": "index.js",

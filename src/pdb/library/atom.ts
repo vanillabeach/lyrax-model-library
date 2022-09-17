@@ -26,11 +26,11 @@ export default class Atom extends PDBPrimitive {
   xOrthogonalCoordinate?: number;
   yOrthogonalCoordinate?: number;
   zOrthogonalCoordinate?: number;
-  occupancy: number;
-  temperatureFactor: number;
-  segmentIdentifier: string;
-  elementSymbol: string;
-  charge: string;
+  occupancy?: number;
+  temperatureFactor?: number;
+  segmentIdentifier?: string;
+  elementSymbol?: string;
+  charge?: string;
 
   constructor(args: AtomArgs) {
     super();

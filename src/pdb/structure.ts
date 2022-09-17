@@ -4,6 +4,11 @@
 
 import Anisou from './library/anisou';
 import Atom from './library/atom';
+import Conect from './library/conect';
+import Helix from './library/helix';
+import HetAtm from './library/hetatm';
+import Sheet from './library/sheet';
+import SSBond from './library/ssbond';
 
 import Snippet from './snippet';
 import { PDBEnums, PDBElement } from './pdb_element';
@@ -39,6 +44,26 @@ export default class Structure {
 
         case PDBEnums.Atom:
           result.push(new Atom({ rawData: line }));
+          break;
+
+        case PDBEnums.Conect:
+          result.push(new Conect({ rawData: line }));
+          break;
+
+        case PDBEnums.Helix:
+          result.push(new Helix({ rawData: line }));
+          break;
+
+        case PDBEnums.HetAtm:
+          result.push(new HetAtm({ rawData: line }));
+          break;
+
+        case PDBEnums.Sheet:
+          result.push(new Sheet({ rawData: line }));
+          break;
+
+        case PDBEnums.SSBond:
+          result.push(new Sheet({ rawData: line }));
           break;
 
         default:
