@@ -11,10 +11,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type SheetArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class Sheet extends PDBPrimitive {
+  private id: string;
+
   strandNumber?: number;
   identifier?: string;
   numberOfStrands?: number;
@@ -40,9 +43,14 @@ export default class Sheet extends PDBPrimitive {
 
   constructor(args: SheetArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getType(): string {

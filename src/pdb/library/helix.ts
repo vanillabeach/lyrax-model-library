@@ -10,10 +10,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type HelixArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class Helix extends PDBPrimitive {
+  private id: string;
+
   serialNumber?: number;
   identifier?: string;
   initialResidueName?: string;
@@ -30,9 +33,14 @@ export default class Helix extends PDBPrimitive {
 
   constructor(args: HelixArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getType(): string {

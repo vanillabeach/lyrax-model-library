@@ -9,10 +9,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type AnisouArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class Anisou extends PDBPrimitive {
+  private id: string;
+
   serialNumber?: number;
   name?: string;
   alternateLocation?: string;
@@ -31,9 +34,14 @@ export default class Anisou extends PDBPrimitive {
 
   constructor(args: AnisouArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getType(): PDBEnums {

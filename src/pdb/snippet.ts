@@ -6,7 +6,18 @@
 export default class Snippet {
   private text: string;
 
+  static getSnippetType(rawSnippet: string): string {
+    return rawSnippet
+      .substring(0, Math.min(5, rawSnippet.length))
+      .trim()
+      .toUpperCase();
+  }
+
   constructor(rawSnippet: string, columnStart: number, columnEnd: number) {
+    if (rawSnippet.trim().length === 0) {
+      throw new Error('snippet is empty.');
+    }
+
     if (columnStart < 1) {
       throw new Error('columnStart should be greater than 0.');
     }

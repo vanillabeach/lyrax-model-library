@@ -13,10 +13,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type ConectArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class Conect extends PDBPrimitive {
+  private id: string;
+
   serial1?: number;
   serial2?: number;
   serial3?: number;
@@ -25,9 +28,14 @@ export default class Conect extends PDBPrimitive {
 
   constructor(args: ConectArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getType(): string {

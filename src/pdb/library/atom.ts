@@ -12,10 +12,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type AtomArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class Atom extends PDBPrimitive {
+  private id: string;
+
   serialNumber?: number;
   name?: string;
   alternateLocationIndicator?: string;
@@ -34,6 +37,7 @@ export default class Atom extends PDBPrimitive {
 
   constructor(args: AtomArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
@@ -45,16 +49,20 @@ export default class Atom extends PDBPrimitive {
     return capitalize(entry!.toLowerCase());
   }
 
+  getCPKColor(): number[] {
+    const key = this.getElement().toLowerCase();
+
+    return CPK[key] ? CPK[key] : CPK['DEFAULT'];
+  }
+
   getElement(): string {
     const entry = this.elementSymbol ? this.elementSymbol : this.name;
 
     return entry!.replace(/[^a-zA-Z]+/g, '');
   }
 
-  getCPKColor(): number[] {
-    const key = this.getElement().toLowerCase();
-
-    return CPK[key] ? CPK[key] : CPK['DEFAULT'];
+  getId(): string {
+    return this.id;
   }
 
   getType(): string {

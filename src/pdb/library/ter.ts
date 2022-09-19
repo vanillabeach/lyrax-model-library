@@ -11,10 +11,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type TerArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class Ter extends PDBPrimitive {
+  private id: string;
+
   serialNumber?: number;
   residueName?: string;
   chainIdentifier?: string;
@@ -23,12 +26,15 @@ export default class Ter extends PDBPrimitive {
 
   constructor(args: TerArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
   }
 
-  static type = 'TER';
+  getId(): string {
+    return this.id;
+  }
 
   getType(): string {
     return PDBEnums.Ter;

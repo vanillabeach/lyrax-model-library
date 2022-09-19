@@ -10,10 +10,13 @@ import PDBPrimitive from '../pdb_primitive';
 import Snippet from '../snippet';
 
 export type SSBondArgs = {
+  id: string;
   rawData?: string;
 };
 
 export default class SSBond extends PDBPrimitive {
+  private id: string;
+
   serialNumber?: number;
   firstResidueName?: string;
   firstChainIdentifier?: string;
@@ -29,9 +32,14 @@ export default class SSBond extends PDBPrimitive {
 
   constructor(args: SSBondArgs) {
     super();
+    this.id = args.id;
     if (args.rawData) {
       this.parse(args.rawData);
     }
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getType(): string {

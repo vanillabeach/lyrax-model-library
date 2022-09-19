@@ -1,8 +1,9 @@
 {
   "name": "@vanillabeach/lyrax-model-library",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "description": "The model library that is used with the LyraX framework.",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +24,9 @@
   },
   "homepage": "https://github.com/vanillabeach/lyrax-model-library#readme",
   "devDependencies": {
+    "@types/jest": "^29.0.3",
+    "jest": "^29.0.3",
+    "ts-jest": "^29.0.1",
     "typescript": "^4.8.3"
   }
 }
