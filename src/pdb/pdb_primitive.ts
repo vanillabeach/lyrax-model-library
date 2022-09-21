@@ -1,7 +1,7 @@
 export default class PDBPrimitive {
-  getId(): string {
+  fromPDBFileEntry(args: { id: string; rawData: string }): Object {
     throw new Error(
-      'getId() has not been implemented for this PDB Primitive class.'
+      'fromPDBFileEntry() has not been implemented for this PDB Primitive class.'
     );
   }
 
