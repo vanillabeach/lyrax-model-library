@@ -12,12 +12,6 @@ import Snippet from '../snippet';
 
 export type SheetArgs = {
   id: string;
-  rawData?: string;
-};
-
-export default class Sheet extends PDBPrimitive {
-  private id: string;
-
   strandNumber?: number;
   identifier?: string;
   numberOfStrands?: number;
@@ -40,13 +34,116 @@ export default class Sheet extends PDBPrimitive {
   secondAtomChainIdentifier?: string;
   secondAtomResidueSequenceNumber?: number;
   secondAtomCodeForInsertionsOfResidue?: string;
+};
+
+export default class Sheet extends PDBPrimitive {
+  // Specific to Lyra
+  readonly id: string;
+
+  // Specific to the PDB specification
+  readonly strandNumber?: number;
+  readonly identifier?: string;
+  readonly numberOfStrands?: number;
+  readonly initialResidueName?: string;
+  readonly firstChainIdentifier?: string;
+  readonly firstResidueSequenceNumber?: number;
+  readonly firstCodeForInsertionsOfResidues?: string;
+  readonly firstTerminalResidueName?: string;
+  readonly secondChainIdentifier?: string;
+  readonly secondResidueSequenceNumber?: number;
+  readonly secondCodeForInsertionsOfResidues?: string;
+  readonly strandSenseWithRespectToPrevious?: number;
+  readonly firstAtomName?: string;
+  readonly firstAtomResidueName?: string;
+  readonly firstAtomChainIdentifier?: string;
+  readonly firstAtomResidueSequenceNumber?: number;
+  readonly firstAtomCodeForInsertionsOfResidue?: string;
+  readonly secondAtomName?: string;
+  readonly secondAtomResidueName?: string;
+  readonly secondAtomChainIdentifier?: string;
+  readonly secondAtomResidueSequenceNumber?: number;
+  readonly secondAtomCodeForInsertionsOfResidue?: string;
 
   constructor(args: SheetArgs) {
     super();
     this.id = args.id;
-    if (args.rawData) {
-      this.parse(args.rawData);
-    }
+    this.strandNumber = args.strandNumber;
+    this.identifier = args.identifier;
+    this.numberOfStrands = args.numberOfStrands;
+    this.initialResidueName = args.initialResidueName;
+    this.firstChainIdentifier = args.firstChainIdentifier;
+    this.firstResidueSequenceNumber = args.firstResidueSequenceNumber;
+    this.firstCodeForInsertionsOfResidues =
+      args.firstCodeForInsertionsOfResidues;
+    this.firstTerminalResidueName = args.firstTerminalResidueName;
+    this.secondChainIdentifier = args.secondChainIdentifier;
+    this.secondResidueSequenceNumber = args.secondResidueSequenceNumber;
+    this.secondCodeForInsertionsOfResidues =
+      args.secondCodeForInsertionsOfResidues;
+    this.strandSenseWithRespectToPrevious =
+      args.strandSenseWithRespectToPrevious;
+    this.firstAtomName = args.firstAtomName;
+    this.firstAtomResidueName = args.firstAtomResidueName;
+    this.firstAtomChainIdentifier = args.firstAtomChainIdentifier;
+    this.firstAtomResidueSequenceNumber = args.firstAtomResidueSequenceNumber;
+    this.firstAtomCodeForInsertionsOfResidue =
+      args.firstAtomCodeForInsertionsOfResidue;
+    this.secondAtomName = args.secondAtomName;
+    this.secondAtomResidueName = args.secondAtomResidueName;
+    this.secondAtomChainIdentifier = args.secondAtomChainIdentifier;
+    this.secondAtomResidueSequenceNumber = args.secondAtomResidueSequenceNumber;
+    this.secondAtomCodeForInsertionsOfResidue =
+      args.secondAtomCodeForInsertionsOfResidue;
+  }
+
+  static fromPDBFileEntry(args: { id: string; rawData: string }): Sheet {
+    const { rawData, id } = args;
+
+    return new Sheet({
+      id: id,
+      strandNumber: new Snippet(rawData, 8, 10).toInteger(),
+      identifier: new Snippet(rawData, 12, 14).toCharacter(),
+      numberOfStrands: new Snippet(rawData, 15, 16).toInteger(),
+      initialResidueName: new Snippet(rawData, 18, 20).toCharacter(),
+      firstChainIdentifier: new Snippet(rawData, 22, 22).toCharacter(),
+      firstResidueSequenceNumber: new Snippet(rawData, 23, 26).toInteger(),
+      firstCodeForInsertionsOfResidues: new Snippet(
+        rawData,
+        27,
+        27
+      ).toCharacter(),
+      firstTerminalResidueName: new Snippet(rawData, 29, 31).toCharacter(),
+      secondChainIdentifier: new Snippet(rawData, 33, 33).toCharacter(),
+      secondResidueSequenceNumber: new Snippet(rawData, 34, 37).toInteger(),
+      secondCodeForInsertionsOfResidues: new Snippet(
+        rawData,
+        38,
+        38
+      ).toCharacter(),
+      strandSenseWithRespectToPrevious: new Snippet(
+        rawData,
+        39,
+        40
+      ).toInteger(),
+      firstAtomName: new Snippet(rawData, 42, 45).toCharacter(),
+      firstAtomResidueName: new Snippet(rawData, 46, 48).toCharacter(),
+      firstAtomChainIdentifier: new Snippet(rawData, 50, 50).toCharacter(),
+      firstAtomResidueSequenceNumber: new Snippet(rawData, 51, 54).toInteger(),
+      firstAtomCodeForInsertionsOfResidue: new Snippet(
+        rawData,
+        55,
+        55
+      ).toCharacter(),
+      secondAtomName: new Snippet(rawData, 57, 60).toCharacter(),
+      secondAtomResidueName: new Snippet(rawData, 61, 63).toCharacter(),
+      secondAtomChainIdentifier: new Snippet(rawData, 65, 65).toCharacter(),
+      secondAtomResidueSequenceNumber: new Snippet(rawData, 66, 69).toInteger(),
+      secondAtomCodeForInsertionsOfResidue: new Snippet(
+        rawData,
+        70,
+        70
+      ).toCharacter(),
+    });
   }
 
   getId(): string {
@@ -55,58 +152,5 @@ export default class Sheet extends PDBPrimitive {
 
   getType(): string {
     return PDBEnums.Sheet;
-  }
-
-  parse(rawData: string): void {
-    this.strandNumber = new Snippet(rawData, 8, 10).toInteger();
-    this.identifier = new Snippet(rawData, 12, 14).toCharacter();
-    this.numberOfStrands = new Snippet(rawData, 15, 16).toInteger();
-    this.initialResidueName = new Snippet(rawData, 18, 20).toCharacter();
-    this.firstChainIdentifier = new Snippet(rawData, 22, 22).toCharacter();
-    this.firstResidueSequenceNumber = new Snippet(rawData, 23, 26).toInteger();
-    this.firstCodeForInsertionsOfResidues = new Snippet(
-      rawData,
-      27,
-      27
-    ).toCharacter();
-    this.firstTerminalResidueName = new Snippet(rawData, 29, 31).toCharacter();
-    this.secondChainIdentifier = new Snippet(rawData, 33, 33).toCharacter();
-    this.secondResidueSequenceNumber = new Snippet(rawData, 34, 37).toInteger();
-    this.secondCodeForInsertionsOfResidues = new Snippet(
-      rawData,
-      38,
-      38
-    ).toCharacter();
-    this.strandSenseWithRespectToPrevious = new Snippet(
-      rawData,
-      39,
-      40
-    ).toInteger();
-    this.firstAtomName = new Snippet(rawData, 42, 45).toCharacter();
-    this.firstAtomResidueName = new Snippet(rawData, 46, 48).toCharacter();
-    this.firstAtomChainIdentifier = new Snippet(rawData, 50, 50).toCharacter();
-    this.firstAtomResidueSequenceNumber = new Snippet(
-      rawData,
-      51,
-      54
-    ).toInteger();
-    this.firstAtomCodeForInsertionsOfResidue = new Snippet(
-      rawData,
-      55,
-      55
-    ).toCharacter();
-    this.secondAtomName = new Snippet(rawData, 57, 60).toCharacter();
-    this.secondAtomResidueName = new Snippet(rawData, 61, 63).toCharacter();
-    this.secondAtomChainIdentifier = new Snippet(rawData, 65, 65).toCharacter();
-    this.secondAtomResidueSequenceNumber = new Snippet(
-      rawData,
-      66,
-      69
-    ).toInteger();
-    this.secondAtomCodeForInsertionsOfResidue = new Snippet(
-      rawData,
-      70,
-      70
-    ).toCharacter();
   }
 }

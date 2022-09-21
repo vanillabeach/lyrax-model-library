@@ -11,12 +11,6 @@ import Snippet from '../snippet';
 
 export type SSBondArgs = {
   id: string;
-  rawData?: string;
-};
-
-export default class SSBond extends PDBPrimitive {
-  private id: string;
-
   serialNumber?: number;
   firstResidueName?: string;
   firstChainIdentifier?: string;
@@ -29,51 +23,80 @@ export default class SSBond extends PDBPrimitive {
   symmetryOperatorForFirstResidue?: number;
   symmetryoperatorForSecondResidue?: number;
   lengthOfDisulfideBond?: number;
+};
+
+export default class SSBond extends PDBPrimitive {
+  // Specific to Lyra
+  readonly id: string;
+
+  // Specific to the PDB specification
+  readonly serialNumber?: number;
+  readonly firstResidueName?: string;
+  readonly firstChainIdentifier?: string;
+  readonly firstResidueSequenceNumber?: number;
+  readonly firstCodeForInsertionsOfResidues?: string;
+  readonly secondResidueName?: string;
+  readonly secondChainIdentifier?: string;
+  readonly secondResidueSequenceNumber?: number;
+  readonly secondCodeForInsertionsOfResidues?: string;
+  readonly symmetryOperatorForFirstResidue?: number;
+  readonly symmetryoperatorForSecondResidue?: number;
+  readonly lengthOfDisulfideBond?: number;
 
   constructor(args: SSBondArgs) {
     super();
+
     this.id = args.id;
-    if (args.rawData) {
-      this.parse(args.rawData);
-    }
+    this.serialNumber = args.serialNumber;
+    this.firstResidueName = args.firstResidueName;
+    this.firstChainIdentifier = args.firstChainIdentifier;
+    this.firstResidueSequenceNumber = args.firstResidueSequenceNumber;
+    this.firstCodeForInsertionsOfResidues =
+      args.firstCodeForInsertionsOfResidues;
+    this.secondResidueName = args.secondResidueName;
+    this.secondChainIdentifier = args.secondChainIdentifier;
+    this.secondResidueSequenceNumber = args.secondResidueSequenceNumber;
+    this.secondCodeForInsertionsOfResidues =
+      args.secondCodeForInsertionsOfResidues;
+    this.symmetryOperatorForFirstResidue = args.symmetryOperatorForFirstResidue;
+    this.symmetryoperatorForSecondResidue =
+      args.symmetryoperatorForSecondResidue;
+    this.lengthOfDisulfideBond = args.lengthOfDisulfideBond;
   }
 
-  getId(): string {
-    return this.id;
+  static fromPDBFileEntry(args: { id: string; rawData: string }): SSBond {
+    const { rawData, id } = args;
+
+    return new SSBond({
+      id: id,
+      serialNumber: new Snippet(rawData, 8, 10).toInteger(),
+      firstResidueName: new Snippet(rawData, 12, 14).toCharacter(),
+      firstChainIdentifier: new Snippet(rawData, 16, 16).toCharacter(),
+      firstResidueSequenceNumber: new Snippet(rawData, 18, 21).toInteger(),
+      firstCodeForInsertionsOfResidues: new Snippet(
+        rawData,
+        22,
+        22
+      ).toCharacter(),
+      secondResidueName: new Snippet(rawData, 26, 28).toCharacter(),
+      secondChainIdentifier: new Snippet(rawData, 30, 30).toCharacter(),
+      secondResidueSequenceNumber: new Snippet(rawData, 32, 35).toInteger(),
+      secondCodeForInsertionsOfResidues: new Snippet(
+        rawData,
+        36,
+        36
+      ).toCharacter(),
+      symmetryOperatorForFirstResidue: new Snippet(rawData, 60, 65).toInteger(),
+      symmetryoperatorForSecondResidue: new Snippet(
+        rawData,
+        67,
+        72
+      ).toInteger(),
+      lengthOfDisulfideBond: new Snippet(rawData, 74, 78).toReal(),
+    });
   }
 
   getType(): string {
     return PDBEnums.SSBond;
-  }
-
-  parse(rawData: string): void {
-    this.serialNumber = new Snippet(rawData, 8, 10).toInteger();
-    this.firstResidueName = new Snippet(rawData, 12, 14).toCharacter();
-    this.firstChainIdentifier = new Snippet(rawData, 16, 16).toCharacter();
-    this.firstResidueSequenceNumber = new Snippet(rawData, 18, 21).toInteger();
-    this.firstCodeForInsertionsOfResidues = new Snippet(
-      rawData,
-      22,
-      22
-    ).toCharacter();
-    this.secondResidueName = new Snippet(rawData, 26, 28).toCharacter();
-    this.secondChainIdentifier = new Snippet(rawData, 30, 30).toCharacter();
-    this.secondResidueSequenceNumber = new Snippet(rawData, 32, 35).toInteger();
-    this.secondCodeForInsertionsOfResidues = new Snippet(
-      rawData,
-      36,
-      36
-    ).toCharacter();
-    this.symmetryOperatorForFirstResidue = new Snippet(
-      rawData,
-      60,
-      65
-    ).toInteger();
-    this.symmetryoperatorForSecondResidue = new Snippet(
-      rawData,
-      67,
-      72
-    ).toInteger();
-    this.lengthOfDisulfideBond = new Snippet(rawData, 74, 78).toReal();
   }
 }

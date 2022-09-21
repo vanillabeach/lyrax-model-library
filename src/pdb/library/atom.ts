@@ -13,12 +13,6 @@ import Snippet from '../snippet';
 
 export type AtomArgs = {
   id: string;
-  rawData?: string;
-};
-
-export default class Atom extends PDBPrimitive {
-  private id: string;
-
   serialNumber?: number;
   name?: string;
   alternateLocationIndicator?: string;
@@ -34,13 +28,70 @@ export default class Atom extends PDBPrimitive {
   segmentIdentifier?: string;
   elementSymbol?: string;
   charge?: string;
+};
+
+export default class Atom extends PDBPrimitive {
+  // Specific to Lyra
+  readonly id: string;
+
+  // Specific to the PDB specification
+  readonly serialNumber?: number;
+  readonly name?: string;
+  readonly alternateLocationIndicator?: string;
+  readonly residueName?: string;
+  readonly chainIdentifier?: string;
+  readonly residueSequenceNumber?: number;
+  readonly codeForInsertionsOfResidue?: string;
+  readonly xOrthogonalCoordinate?: number;
+  readonly yOrthogonalCoordinate?: number;
+  readonly zOrthogonalCoordinate?: number;
+  readonly occupancy?: number;
+  readonly temperatureFactor?: number;
+  readonly segmentIdentifier?: string;
+  readonly elementSymbol?: string;
+  readonly charge?: string;
 
   constructor(args: AtomArgs) {
     super();
+
     this.id = args.id;
-    if (args.rawData) {
-      this.parse(args.rawData);
-    }
+    this.serialNumber = args.serialNumber;
+    this.name = args.name;
+    this.alternateLocationIndicator = args.alternateLocationIndicator;
+    this.residueName = args.residueName;
+    this.chainIdentifier = args.chainIdentifier;
+    this.residueSequenceNumber = args.residueSequenceNumber;
+    this.codeForInsertionsOfResidue = args.codeForInsertionsOfResidue;
+    this.xOrthogonalCoordinate = args.xOrthogonalCoordinate;
+    this.yOrthogonalCoordinate = args.yOrthogonalCoordinate;
+    this.zOrthogonalCoordinate = args.zOrthogonalCoordinate;
+    this.occupancy = args.occupancy;
+    this.temperatureFactor = args.temperatureFactor;
+    this.segmentIdentifier = args.segmentIdentifier;
+    this.elementSymbol = args.elementSymbol;
+    this.charge = args.charge;
+  }
+
+  static fromPDBFileEntry(args: { id: string; rawData: string }): Atom {
+    const { rawData, id } = args;
+
+    return new Atom({
+      id: id,
+      serialNumber: new Snippet(rawData, 7, 11).toInteger(),
+      name: new Snippet(rawData, 13, 16).toCharacter(),
+      alternateLocationIndicator: new Snippet(rawData, 17, 17).toCharacter(),
+      residueName: new Snippet(rawData, 18, 20).toCharacter(),
+      chainIdentifier: new Snippet(rawData, 22, 22).toCharacter(),
+      residueSequenceNumber: new Snippet(rawData, 23, 26).toInteger(),
+      codeForInsertionsOfResidue: new Snippet(rawData, 27, 27).toCharacter(),
+      xOrthogonalCoordinate: new Snippet(rawData, 31, 38).toReal(),
+      yOrthogonalCoordinate: new Snippet(rawData, 39, 46).toReal(),
+      zOrthogonalCoordinate: new Snippet(rawData, 47, 54).toReal(),
+      temperatureFactor: new Snippet(rawData, 61, 66).toReal(),
+      segmentIdentifier: new Snippet(rawData, 73, 76).toCharacter(),
+      elementSymbol: new Snippet(rawData, 77, 78).toCharacter(),
+      charge: new Snippet(rawData, 79, 80).toCharacter(),
+    });
   }
 
   getCapitalizedName(): string {
@@ -61,37 +112,7 @@ export default class Atom extends PDBPrimitive {
     return entry!.replace(/[^a-zA-Z]+/g, '');
   }
 
-  getId(): string {
-    return this.id;
-  }
-
   getType(): string {
     return PDBEnums.Atom;
-  }
-
-  parse(rawData: string): void {
-    this.serialNumber = new Snippet(rawData, 7, 11).toInteger();
-    this.name = new Snippet(rawData, 13, 16).toCharacter();
-    this.alternateLocationIndicator = new Snippet(
-      rawData,
-      17,
-      17
-    ).toCharacter();
-    this.residueName = new Snippet(rawData, 18, 20).toCharacter();
-    this.chainIdentifier = new Snippet(rawData, 22, 22).toCharacter();
-    this.residueSequenceNumber = new Snippet(rawData, 23, 26).toInteger();
-    this.codeForInsertionsOfResidue = new Snippet(
-      rawData,
-      27,
-      27
-    ).toCharacter();
-    this.xOrthogonalCoordinate = new Snippet(rawData, 31, 38).toReal();
-    this.yOrthogonalCoordinate = new Snippet(rawData, 39, 46).toReal();
-    this.zOrthogonalCoordinate = new Snippet(rawData, 47, 54).toReal();
-    this.occupancy = new Snippet(rawData, 55, 60).toReal();
-    this.temperatureFactor = new Snippet(rawData, 61, 66).toReal();
-    this.segmentIdentifier = new Snippet(rawData, 73, 76).toCharacter();
-    this.elementSymbol = new Snippet(rawData, 77, 78).toCharacter();
-    this.charge = new Snippet(rawData, 79, 80).toCharacter();
   }
 }

@@ -9,6 +9,7 @@ import Helix from './library/helix';
 import HetAtm from './library/hetatm';
 import Sheet from './library/sheet';
 import SSBond from './library/ssbond';
+import Ter from './library/ter';
 
 import Snippet from './snippet';
 import { PDBEnums, PDBElement } from './pdb_element';
@@ -75,34 +76,39 @@ export default class PDBStructure {
 
       const entryType = Snippet.getSnippetType(line);
       const key = `pdb_${id}_${index}${entryType}`;
+      const args = { id: key, rawData: line };
 
       switch (entryType) {
         case PDBEnums.Anisou:
-          result.push(new Anisou({ id: key, rawData: line }));
+          result.push(Anisou.fromPDBFileEntry(args));
           break;
 
         case PDBEnums.Atom:
-          result.push(new Atom({ id: key, rawData: line }));
+          result.push(Atom.fromPDBFileEntry(args));
           break;
 
         case PDBEnums.Conect:
-          result.push(new Conect({ id: key, rawData: line }));
+          result.push(Conect.fromPDBFileEntry(args));
           break;
 
         case PDBEnums.Helix:
-          result.push(new Helix({ id: key, rawData: line }));
+          result.push(Helix.fromPDBFileEntry(args));
           break;
 
         case PDBEnums.HetAtm:
-          result.push(new HetAtm({ id: key, rawData: line }));
+          result.push(HetAtm.fromPDBFileEntry(args));
           break;
 
         case PDBEnums.Sheet:
-          result.push(new Sheet({ id: key, rawData: line }));
+          result.push(Sheet.fromPDBFileEntry(args));
           break;
 
         case PDBEnums.SSBond:
-          result.push(new SSBond({ id: key, rawData: line }));
+          result.push(SSBond.fromPDBFileEntry(args));
+          break;
+
+        case PDBEnums.Ter:
+          result.push(Ter.fromPDBFileEntry(args));
           break;
 
         default:

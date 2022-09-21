@@ -11,12 +11,6 @@ import Snippet from '../snippet';
 
 export type HelixArgs = {
   id: string;
-  rawData?: string;
-};
-
-export default class Helix extends PDBPrimitive {
-  private id: string;
-
   serialNumber?: number;
   identifier?: string;
   initialResidueName?: string;
@@ -30,44 +24,78 @@ export default class Helix extends PDBPrimitive {
   typeOfHelix?: number;
   comment?: string;
   lengthOfHelix?: string;
+};
+
+export default class Helix extends PDBPrimitive {
+  // Specific to Lyra
+  readonly id: string;
+
+  // Specific to the PDB specification
+  readonly serialNumber?: number;
+  readonly identifier?: string;
+  readonly initialResidueName?: string;
+  readonly firstChainIdentifier?: string;
+  readonly firstResidueSequenceNumber?: number;
+  readonly firstCodeForInsertionsOfResidues?: string;
+  readonly firstTerminalResidueName?: string;
+  readonly secondChainIdentifier?: string;
+  readonly secondResidueSequenceNumber?: number;
+  readonly secondCodeForInsertionsOfResidues?: string;
+  readonly typeOfHelix?: number;
+  readonly comment?: string;
+  readonly lengthOfHelix?: string;
 
   constructor(args: HelixArgs) {
     super();
+
     this.id = args.id;
-    if (args.rawData) {
-      this.parse(args.rawData);
-    }
+    this.serialNumber = args.serialNumber;
+    this.identifier = args.identifier;
+    this.initialResidueName = args.initialResidueName;
+    this.firstChainIdentifier = args.firstChainIdentifier;
+    this.firstResidueSequenceNumber = args.firstResidueSequenceNumber;
+    this.firstCodeForInsertionsOfResidues =
+      args.firstCodeForInsertionsOfResidues;
+    this.firstTerminalResidueName = args.firstTerminalResidueName;
+    this.secondChainIdentifier = args.secondChainIdentifier;
+    this.secondResidueSequenceNumber = args.secondResidueSequenceNumber;
+    this.secondCodeForInsertionsOfResidues =
+      args.secondCodeForInsertionsOfResidues;
+    this.typeOfHelix = args.typeOfHelix;
+    this.comment = args.comment;
+    this.lengthOfHelix = args.lengthOfHelix;
   }
 
-  getId(): string {
-    return this.id;
+  static fromPDBFileEntry(args: { id: string; rawData: string }): Helix {
+    const { rawData, id } = args;
+
+    return new Helix({
+      id: id,
+      serialNumber: new Snippet(rawData, 8, 10).toInteger(),
+      identifier: new Snippet(rawData, 12, 14).toCharacter(),
+      initialResidueName: new Snippet(rawData, 16, 18).toCharacter(),
+      firstChainIdentifier: new Snippet(rawData, 20, 20).toCharacter(),
+      firstResidueSequenceNumber: new Snippet(rawData, 22, 25).toInteger(),
+      firstCodeForInsertionsOfResidues: new Snippet(
+        rawData,
+        26,
+        26
+      ).toCharacter(),
+      firstTerminalResidueName: new Snippet(rawData, 28, 30).toCharacter(),
+      secondChainIdentifier: new Snippet(rawData, 32, 32).toCharacter(),
+      secondResidueSequenceNumber: new Snippet(rawData, 34, 37).toInteger(),
+      secondCodeForInsertionsOfResidues: new Snippet(
+        rawData,
+        38,
+        38
+      ).toCharacter(),
+      typeOfHelix: new Snippet(rawData, 39, 40).toInteger(),
+      comment: new Snippet(rawData, 41, 70).toCharacter(),
+      lengthOfHelix: new Snippet(rawData, 72, 76).toCharacter(),
+    });
   }
 
   getType(): string {
     return PDBEnums.Helix;
-  }
-
-  parse(rawData: string): void {
-    this.serialNumber = new Snippet(rawData, 8, 10).toInteger();
-    this.identifier = new Snippet(rawData, 12, 14).toCharacter();
-    this.initialResidueName = new Snippet(rawData, 16, 18).toCharacter();
-    this.firstChainIdentifier = new Snippet(rawData, 20, 20).toCharacter();
-    this.firstResidueSequenceNumber = new Snippet(rawData, 22, 25).toInteger();
-    this.firstCodeForInsertionsOfResidues = new Snippet(
-      rawData,
-      26,
-      26
-    ).toCharacter();
-    this.firstTerminalResidueName = new Snippet(rawData, 28, 30).toCharacter();
-    this.secondChainIdentifier = new Snippet(rawData, 32, 32).toCharacter();
-    this.secondResidueSequenceNumber = new Snippet(rawData, 34, 37).toInteger();
-    this.secondCodeForInsertionsOfResidues = new Snippet(
-      rawData,
-      38,
-      38
-    ).toCharacter();
-    this.typeOfHelix = new Snippet(rawData, 39, 40).toInteger();
-    this.comment = new Snippet(rawData, 41, 70).toCharacter();
-    this.lengthOfHelix = new Snippet(rawData, 72, 76).toCharacter();
   }
 }
