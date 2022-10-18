@@ -4,6 +4,7 @@
  */
 export default class Snippet {
     private text;
+    static getSnippetType(rawSnippet: string): string;
     constructor(rawSnippet: string, columnStart: number, columnEnd: number);
     toInteger(): number;
     toReal(): number;

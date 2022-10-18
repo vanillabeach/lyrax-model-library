@@ -5,18 +5,28 @@
  *
  * Definitions can be found at https://bit.ly/3BIPnv1
  */
+import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
 export declare type TerArgs = {
-    rawData?: string;
-};
-export default class Ter extends PDBPrimitive {
+    id: string;
     serialNumber?: number;
     residueName?: string;
     chainIdentifier?: string;
     residueSequenceNumber?: number;
     codeForInsertionsOfResidue?: string;
+};
+export default class Ter extends PDBPrimitive {
+    readonly id: string;
+    readonly serialNumber?: number;
+    readonly residueName?: string;
+    readonly chainIdentifier?: string;
+    readonly residueSequenceNumber?: number;
+    readonly codeForInsertionsOfResidue?: string;
     constructor(args: TerArgs);
-    static type: string;
-    getType(): string;
-    parse(rawData: string): void;
+    static type: PDBEnums;
+    static fromPDBFileEntry(args: {
+        id: string;
+        rawData: string;
+    }): Ter;
+    getType(): PDBEnums;
 }

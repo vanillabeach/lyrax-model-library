@@ -1,6 +1,6 @@
 {
   "name": "@vanillabeach/lyrax-model-library",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "The model library that is used with the LyraX framework.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

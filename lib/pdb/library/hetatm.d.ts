@@ -10,7 +10,8 @@
  * Definitions can be found at https://bit.ly/3BIPnv1
  */
 import Atom from './atom';
+import { PDBEnums } from '../pdb_element';
 export default class HetAtm extends Atom {
-    static type: string;
-    getType(): string;
+    static type: PDBEnums;
+    getType(): PDBEnums;
 }

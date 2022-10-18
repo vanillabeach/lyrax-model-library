@@ -5,11 +5,10 @@
  *
  * Definitions can be found at https://bit.ly/3ptKnTu
  */
+import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
 export declare type SheetArgs = {
-    rawData?: string;
-};
-export default class Sheet extends PDBPrimitive {
+    id: string;
     strandNumber?: number;
     identifier?: string;
     numberOfStrands?: number;
@@ -32,7 +31,37 @@ export default class Sheet extends PDBPrimitive {
     secondAtomChainIdentifier?: string;
     secondAtomResidueSequenceNumber?: number;
     secondAtomCodeForInsertionsOfResidue?: string;
+};
+export default class Sheet extends PDBPrimitive {
+    readonly id: string;
+    readonly strandNumber?: number;
+    readonly identifier?: string;
+    readonly numberOfStrands?: number;
+    readonly initialResidueName?: string;
+    readonly firstChainIdentifier?: string;
+    readonly firstResidueSequenceNumber?: number;
+    readonly firstCodeForInsertionsOfResidues?: string;
+    readonly firstTerminalResidueName?: string;
+    readonly secondChainIdentifier?: string;
+    readonly secondResidueSequenceNumber?: number;
+    readonly secondCodeForInsertionsOfResidues?: string;
+    readonly strandSenseWithRespectToPrevious?: number;
+    readonly firstAtomName?: string;
+    readonly firstAtomResidueName?: string;
+    readonly firstAtomChainIdentifier?: string;
+    readonly firstAtomResidueSequenceNumber?: number;
+    readonly firstAtomCodeForInsertionsOfResidue?: string;
+    readonly secondAtomName?: string;
+    readonly secondAtomResidueName?: string;
+    readonly secondAtomChainIdentifier?: string;
+    readonly secondAtomResidueSequenceNumber?: number;
+    readonly secondAtomCodeForInsertionsOfResidue?: string;
     constructor(args: SheetArgs);
-    getType(): string;
-    parse(rawData: string): void;
+    static type: PDBEnums;
+    static fromPDBFileEntry(args: {
+        id: string;
+        rawData: string;
+    }): Sheet;
+    getId(): string;
+    getType(): PDBEnums;
 }

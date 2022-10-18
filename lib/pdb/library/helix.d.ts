@@ -4,11 +4,10 @@
  *
  * Definitions can be found at https://bit.ly/3ptKnTu
  */
+import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
 export declare type HelixArgs = {
-    rawData?: string;
-};
-export default class Helix extends PDBPrimitive {
+    id: string;
     serialNumber?: number;
     identifier?: string;
     initialResidueName?: string;
@@ -22,7 +21,27 @@ export default class Helix extends PDBPrimitive {
     typeOfHelix?: number;
     comment?: string;
     lengthOfHelix?: string;
+};
+export default class Helix extends PDBPrimitive {
+    readonly id: string;
+    readonly serialNumber?: number;
+    readonly identifier?: string;
+    readonly initialResidueName?: string;
+    readonly firstChainIdentifier?: string;
+    readonly firstResidueSequenceNumber?: number;
+    readonly firstCodeForInsertionsOfResidues?: string;
+    readonly firstTerminalResidueName?: string;
+    readonly secondChainIdentifier?: string;
+    readonly secondResidueSequenceNumber?: number;
+    readonly secondCodeForInsertionsOfResidues?: string;
+    readonly typeOfHelix?: number;
+    readonly comment?: string;
+    readonly lengthOfHelix?: string;
     constructor(args: HelixArgs);
-    getType(): string;
-    parse(rawData: string): void;
+    static type: PDBEnums;
+    static fromPDBFileEntry(args: {
+        id: string;
+        rawData: string;
+    }): Helix;
+    getType(): PDBEnums;
 }
