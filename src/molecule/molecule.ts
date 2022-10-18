@@ -1,4 +1,5 @@
 import PDBStructure from '../pdb/pdb_structure';
+import { PDBElement } from '../pdb/pdb_element';
 import { CoordinatesIn3D } from '../standards/coordinates';
 
 export type MoleculeArgs = {
@@ -11,6 +12,10 @@ export default class Molecule {
   private id: string;
   private pdbStructure: PDBStructure;
   private coordinates?: CoordinatesIn3D;
+
+  get pdbEntries(): PDBElement[] {
+    return this.pdbStructure.getEntries();
+  }
 
   constructor(args: MoleculeArgs) {
     this.id = args.id;

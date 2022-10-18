@@ -64,6 +64,8 @@ export default class SSBond extends PDBPrimitive {
     this.lengthOfDisulfideBond = args.lengthOfDisulfideBond;
   }
 
+  static type = PDBEnums.SSBond;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): SSBond {
     const { rawData, id } = args;
 
@@ -96,7 +98,7 @@ export default class SSBond extends PDBPrimitive {
     });
   }
 
-  getType(): string {
-    return PDBEnums.SSBond;
+  getType(): PDBEnums {
+    return SSBond.type;
   }
 }

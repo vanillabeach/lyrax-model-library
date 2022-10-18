@@ -68,6 +68,8 @@ export default class Anisou extends PDBPrimitive {
     this.charge = args.charge;
   }
 
+  static type = PDBEnums.Anisou;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): Anisou {
     const { rawData, id } = args;
 
@@ -92,6 +94,6 @@ export default class Anisou extends PDBPrimitive {
   }
 
   getType(): PDBEnums {
-    return PDBEnums.Anisou;
+    return Anisou.type;
   }
 }

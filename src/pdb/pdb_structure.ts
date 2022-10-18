@@ -75,7 +75,8 @@ export default class PDBStructure {
       }
 
       const entryType = Snippet.getSnippetType(line);
-      const key = `pdb_${id}_${index}${entryType}`;
+      const keyPrefix = id ? `${id}_` : ``;
+      const key = `${keyPrefix}pdb_${index}${entryType}`;
       const args = { id: key, rawData: line };
 
       switch (entryType) {

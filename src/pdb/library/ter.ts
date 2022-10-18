@@ -41,6 +41,8 @@ export default class Ter extends PDBPrimitive {
     this.codeForInsertionsOfResidue = args.codeForInsertionsOfResidue;
   }
 
+  static type = PDBEnums.Ter;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): Ter {
     const { rawData, id } = args;
 
@@ -54,7 +56,7 @@ export default class Ter extends PDBPrimitive {
     });
   }
 
-  getType(): string {
-    return PDBEnums.Ter;
+  getType(): PDBEnums {
+    return Ter.type;
   }
 }

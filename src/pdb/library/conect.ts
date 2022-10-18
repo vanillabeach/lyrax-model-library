@@ -43,6 +43,8 @@ export default class Conect extends PDBPrimitive {
     this.serial5 = args.serial5;
   }
 
+  static type = PDBEnums.Conect;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): Conect {
     const { rawData, id } = args;
 
@@ -56,7 +58,7 @@ export default class Conect extends PDBPrimitive {
     });
   }
 
-  getType(): string {
-    return PDBEnums.Conect;
+  getType(): PDBEnums {
+    return Conect.type;
   }
 }

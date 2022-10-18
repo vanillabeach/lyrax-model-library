@@ -1,29 +1,38 @@
 import Anisou, { AnisouArgs } from './pdb/library/anisou';
-export { Anisou, AnisouArgs };
+export { Anisou, type AnisouArgs };
 
 import Atom, { AtomArgs } from './pdb/library/atom';
-export { Atom, AtomArgs };
+export { Atom, type AtomArgs };
 
 import Conect, { ConectArgs } from './pdb/library/conect';
-export { Conect, ConectArgs };
+export { Conect, type ConectArgs };
 
 import Helix, { HelixArgs } from './pdb/library/helix';
-export { Helix, HelixArgs };
+export { Helix, type HelixArgs };
 
 import HetAtm from './pdb/library/hetatm';
 export { HetAtm };
 
 import Sheet, { SheetArgs } from './pdb/library/sheet';
-export { Sheet, SheetArgs };
+export { Sheet, type SheetArgs };
 
 import SSBond, { SSBondArgs } from './pdb/library/ssbond';
-export { SSBond, SSBondArgs };
+export { SSBond, type SSBondArgs };
 
 import Ter, { TerArgs } from './pdb/library/ter';
-export { Ter, TerArgs };
+export { Ter, type TerArgs };
 
 import { CPK } from './standards/cpk';
 export { CPK };
 
+import Molecule from './molecule/molecule';
+export { Molecule };
+
+import { PDBElement } from './pdb/pdb_element';
+export { type PDBElement };
+
+import { PDBEnums } from './pdb/pdb_element';
+export { type PDBEnums };
+
 import PDBStructure from './pdb/pdb_structure';
-export default PDBStructure;
+export { PDBStructure };

@@ -96,6 +96,8 @@ export default class Sheet extends PDBPrimitive {
       args.secondAtomCodeForInsertionsOfResidue;
   }
 
+  static type = PDBEnums.Sheet;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): Sheet {
     const { rawData, id } = args;
 
@@ -150,7 +152,7 @@ export default class Sheet extends PDBPrimitive {
     return this.id;
   }
 
-  getType(): string {
-    return PDBEnums.Sheet;
+  getType(): PDBEnums {
+    return Sheet.type;
   }
 }

@@ -66,6 +66,8 @@ export default class Helix extends PDBPrimitive {
     this.lengthOfHelix = args.lengthOfHelix;
   }
 
+  static type = PDBEnums.Helix;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): Helix {
     const { rawData, id } = args;
 
@@ -95,7 +97,7 @@ export default class Helix extends PDBPrimitive {
     });
   }
 
-  getType(): string {
-    return PDBEnums.Helix;
+  getType(): PDBEnums {
+    return Helix.type;
   }
 }

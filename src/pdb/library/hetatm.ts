@@ -14,9 +14,9 @@ import Atom from './atom';
 import { PDBEnums } from '../pdb_element';
 
 export default class HetAtm extends Atom {
-  static type = 'HETATM';
+  static type = PDBEnums.HetAtm;
 
-  getType(): string {
-    return PDBEnums.HetAtm;
+  getType(): PDBEnums {
+    return HetAtm.type;
   }
 }

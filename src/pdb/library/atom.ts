@@ -72,6 +72,8 @@ export default class Atom extends PDBPrimitive {
     this.charge = args.charge;
   }
 
+  static type = PDBEnums.Atom;
+
   static fromPDBFileEntry(args: { id: string; rawData: string }): Atom {
     const { rawData, id } = args;
 
@@ -112,7 +114,7 @@ export default class Atom extends PDBPrimitive {
     return entry!.replace(/[^a-zA-Z]+/g, '');
   }
 
-  getType(): string {
-    return PDBEnums.Atom;
+  getType(): PDBEnums {
+    return Atom.type;
   }
 }

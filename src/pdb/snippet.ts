@@ -8,7 +8,7 @@ export default class Snippet {
 
   static getSnippetType(rawSnippet: string): string {
     return rawSnippet
-      .substring(0, Math.min(5, rawSnippet.length))
+      .substring(0, Math.min(6, rawSnippet.length))
       .trim()
       .toUpperCase();
   }
