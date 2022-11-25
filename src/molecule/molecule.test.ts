@@ -55,7 +55,7 @@ const bond1 = new Bond({
 describe(Molecule, () => {
   describe("constructor", () => {
     describe("default", () => {
-      test("Valid Constructor with predefined values", () => {
+      test("valid constructor with predefined values", () => {
         const molecule = new Molecule({
           id: "molecule1",
           atoms: [atom1, atom2, atom3],
@@ -65,7 +65,7 @@ describe(Molecule, () => {
         expect(molecule).not.toBe(null);
       });
 
-      test("Valid Constructor with accumulated values", () => {
+      test("valid constructor with accumulated values", () => {
         const molecule = new Molecule({
           id: "molecule1",
         });
@@ -79,18 +79,68 @@ describe(Molecule, () => {
         expect(molecule).not.toBe(null);
         expect(molecule.atoms[0].id).toEqual(atom1.id);
       });
+
+      test("valid constructor with accumulated values", () => {
+        const molecule = new Molecule({
+          id: "molecule1",
+          atoms: [atom1, atom2, atom3],
+          atomBonds: [bond1],
+        });
+
+        const atomIds = molecule.atoms.map((x) => x.id);
+        expect(atomIds).toEqual([atom1.id, atom2.id, atom3.id]);
+
+        const bondIds = molecule.atomBonds.map((x) => x.id);
+        expect(bondIds).toEqual([bond1.id]);
+      });
     });
 
-    describe(Molecule.fromPDBStructure, () => {
+    describe("factory methods", () => {
       const examplePdbStructure =
         PDBStructure.fromPDBTextFile(PDB_FILE_AS_TEXT);
-      const molecule = Molecule.fromPDBStructure(
-        "molecule1",
-        examplePdbStructure
-      );
 
-      expect(molecule).not.toBe(null);
-      expect(molecule.atoms[0].id).toEqual("pdb_4ATOM");
+      describe(Molecule.fromPDBStructure, () => {
+        const molecule = Molecule.fromPDBStructure(
+          "molecule1",
+          examplePdbStructure
+        );
+
+        expect(molecule).not.toBe(null);
+        expect(molecule.atoms[0].id).toEqual("pdb_4ATOM");
+      });
+
+      test("valid constructor with accumulated values", () => {
+        const molecule = Molecule.fromPDBStructure(
+          "molecule1",
+          examplePdbStructure
+        );
+
+        const atomIds = molecule.atoms.map((x) => x.id);
+        expect(atomIds).toEqual([
+          "pdb_4ATOM",
+          "pdb_5ATOM",
+          "pdb_6ATOM",
+          "pdb_7ATOM",
+          "pdb_8ATOM",
+          "pdb_9ATOM",
+          "pdb_10ATOM",
+          "pdb_11ATOM",
+          "pdb_12ATOM",
+        ]);
+
+        const bondIds = molecule.atomBonds.map((x) => x.id);
+        console.log("bondIds", bondIds);
+        expect(bondIds).toEqual([
+          "bondsMap0_pdb_4ATOM_pdb_5ATOM",
+          "bondsMap1_pdb_4ATOM_pdb_7ATOM",
+          "bondsMap2_pdb_4ATOM_pdb_8ATOM",
+          "bondsMap3_pdb_4ATOM_pdb_9ATOM",
+          "bondsMap4_pdb_5ATOM_pdb_10ATOM",
+          "bondsMap5_pdb_5ATOM_pdb_11ATOM",
+          "bondsMap6_pdb_5ATOM_pdb_12ATOM",
+          "bondsMap7_pdb_7ATOM_pdb_6ATOM",
+        ]);
+      });
     });
   });
 });

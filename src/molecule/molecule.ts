@@ -105,55 +105,61 @@ export default class Molecule {
     });
 
     const bondsMap: { [key: string]: Bond[] } = {};
+    let index = 0;
+    const bondsId = (index: number, atom1Id: string, atom2Id: string) =>
+      `bondsMap${index}_${atom1Id}_${atom2Id}`;
 
     conectsList.forEach((entry: Conect) => {
       if (entry.serial1 !== undefined && entry.serial1 > 0) {
         const atom1 = atomsBySerialNumber[entry.serial1].id;
         const values: Bond[] = [];
-        const id = `bondsMap${values.length}`;
 
         if (entry.serial2 !== undefined && entry.serial2 > 0) {
           const atom2 = atomsBySerialNumber[entry.serial2].id;
           values.push(
             new Bond({
-              id: `${id}_${atom1}_${atom2}`,
+              id: bondsId(index, atom1, atom2),
               firstId: atom1,
               secondId: atom2,
             })
           );
+          index += 1;
         }
 
         if (entry.serial3 !== undefined && entry.serial3 > 0) {
           const atom2 = atomsBySerialNumber[entry.serial3].id;
           values.push(
             new Bond({
-              id: `${id}_${atom1}_${atom2}`,
+              id: bondsId(index, atom1, atom2),
               firstId: atom1,
               secondId: atom2,
             })
           );
+          index += 1;
         }
 
         if (entry.serial4 !== undefined && entry.serial4 > 0) {
           const atom2 = atomsBySerialNumber[entry.serial4].id;
           values.push(
             new Bond({
-              id: `${id}_${atom1}_${atom2}`,
+              id: bondsId(index, atom1, atom2),
               firstId: atom1,
               secondId: atom2,
             })
           );
+          index += 1;
         }
 
         if (entry.serial5 !== undefined && entry.serial5 > 0) {
           const atom2 = atomsBySerialNumber[entry.serial5].id;
           values.push(
             new Bond({
-              id: `${id}_${atom1}_${atom2}`,
+              id: bondsId(index, atom1, atom2),
               firstId: atom1,
               secondId: atom2,
             })
           );
+          index += 1;
         }
 
         bondsMap[atom1] = values;
