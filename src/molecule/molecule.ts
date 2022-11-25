@@ -53,7 +53,13 @@ export default class Molecule {
     return this;
   }
 
-  addBond(atom1: Atom, atom2: Atom, settings?: BondSettings) {
+  addAtoms(atom: Atom[]) {
+    this.atoms.push(...atom);
+
+    return this;
+  }
+
+  addAtomBond(atom1: Atom, atom2: Atom, settings?: BondSettings) {
     const id = `bondsMap${Object.keys(this.atomBonds).length}`;
 
     const bond = new Bond({
@@ -66,6 +72,48 @@ export default class Molecule {
     this.atomBonds.push(bond);
 
     return this;
+  }
+
+  addAtomBonds(bonds: Bond[]) {
+    this.atomBonds.push(...bonds);
+
+    return this;
+  }
+
+  getAtom(id: string) {
+    const result = this.atoms.filter((x) => x.id === id);
+
+    return result.length === 0 ? null : result[0];
+  }
+
+  getAtomBond(id: string) {
+    const result = this.atomBonds.filter((x) => x.id === id);
+
+    return result.length === 0 ? null : result[0];
+  }
+
+  static getTheDistanceBetweenTwoAtoms(
+    atom1: Atom,
+    atom2: Atom
+  ): number | null {
+    let x1 = atom1.xOrthogonalCoordinate;
+    let y1 = atom1.yOrthogonalCoordinate;
+    let z1 = atom1.zOrthogonalCoordinate;
+    let x2 = atom2.xOrthogonalCoordinate;
+    let y2 = atom2.yOrthogonalCoordinate;
+    let z2 = atom2.zOrthogonalCoordinate;
+
+    if (x1 === undefined || y1 === undefined || z1 === undefined) {
+      return null;
+    }
+
+    if (x2 === undefined || y2 === undefined || z2 === undefined) {
+      return null;
+    }
+
+    return Math.sqrt(
+      Math.abs((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
+    );
   }
 
   private static getAtomsListFromPDBStructure(

@@ -4,8 +4,8 @@
  *
  * Definitions can be found at https://bit.ly/3BIPnv1
  */
-import { PDBEnums } from '../pdb_element';
-import PDBPrimitive from '../pdb_primitive';
+import { PDBEnums } from "../pdb_element";
+import PDBPrimitive from "../pdb_primitive";
 export declare type AtomArgs = {
     id: string;
     serialNumber?: number;

@@ -1,5 +1,5 @@
 import Atom from "../pdb/library/atom";
-import Bond, { BondSettings } from "./bond";
+import Bond from "./bond";
 import PDBStructure from "../pdb/pdb_structure";
 
 import Molecule from "./molecule";
@@ -25,17 +25,17 @@ END`;
 const atom1 = new Atom({
   id: "atom1",
   serialNumber: 1,
-  xOrthogonalCoordinate: 4.956,
-  yOrthogonalCoordinate: 1.984,
-  zOrthogonalCoordinate: 1.394,
+  xOrthogonalCoordinate: 1.0,
+  yOrthogonalCoordinate: 1.0,
+  zOrthogonalCoordinate: 0.0,
   elementSymbol: "c",
 });
 const atom2 = new Atom({
   id: "atom2",
   serialNumber: 2,
-  xOrthogonalCoordinate: 4.745,
-  yOrthogonalCoordinate: 1.285,
-  zOrthogonalCoordinate: 0.166,
+  xOrthogonalCoordinate: 2.0,
+  yOrthogonalCoordinate: 1.0,
+  zOrthogonalCoordinate: 2.0,
   elementSymbol: "c",
 });
 const atom3 = new Atom({
@@ -74,7 +74,7 @@ describe(Molecule, () => {
           .addAtom(atom1)
           .addAtom(atom2)
           .addAtom(atom3)
-          .addBond(atom1, atom2);
+          .addAtomBond(atom1, atom2);
 
         expect(molecule).not.toBe(null);
         expect(molecule.atoms[0].id).toEqual(atom1.id);
@@ -140,6 +140,24 @@ describe(Molecule, () => {
           "bondsMap6_pdb_5ATOM_pdb_12ATOM",
           "bondsMap7_pdb_7ATOM_pdb_6ATOM",
         ]);
+      });
+    });
+
+    describe("other static methods", () => {
+      describe(Molecule.getTheDistanceBetweenTwoAtoms, () => {
+        test("works with valid numbers", () => {
+          const distanceBetweenAtom1AndAtom2 =
+            Molecule.getTheDistanceBetweenTwoAtoms(atom1, atom2);
+          expect(Number(distanceBetweenAtom1AndAtom2!.toFixed(2))).toEqual(
+            2.24
+          );
+        });
+        test("captures invalid numbers", () => {
+          const nullAtom = new Atom({ id: "nullAtom" });
+          const distanceBetweenAtom1AndNullAtom =
+            Molecule.getTheDistanceBetweenTwoAtoms(atom1, nullAtom);
+          expect(distanceBetweenAtom1AndNullAtom).toBeNull();
+        });
       });
     });
   });

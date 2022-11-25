@@ -5,11 +5,11 @@
  * Definitions can be found at https://bit.ly/3BIPnv1
  */
 
-import { capitalize } from '../../utils/text';
-import { CPK } from '../../standards/cpk';
-import { PDBEnums } from '../pdb_element';
-import PDBPrimitive from '../pdb_primitive';
-import Snippet from '../snippet';
+import { capitalize } from "../../utils/text";
+import { CPK } from "../../standards/cpk";
+import { PDBEnums } from "../pdb_element";
+import PDBPrimitive from "../pdb_primitive";
+import Snippet from "../snippet";
 
 export type AtomArgs = {
   id: string;
@@ -105,13 +105,13 @@ export default class Atom extends PDBPrimitive {
   getCPKColor(): number[] {
     const key = this.getElement().toLowerCase();
 
-    return CPK[key] ? CPK[key] : CPK['DEFAULT'];
+    return CPK[key] ? CPK[key] : CPK["DEFAULT"];
   }
 
   getElement(): string {
     const entry = this.elementSymbol ? this.elementSymbol : this.name;
 
-    return entry!.replace(/[^a-zA-Z]+/g, '');
+    return entry!.replace(/[^a-zA-Z]+/g, "");
   }
 
   getType(): PDBEnums {
