@@ -6,7 +6,7 @@ import HetAtm from './library/hetatm';
 import Sheet from './library/sheet';
 import SSBond from './library/ssbond';
 import Ter from './library/ter';
-export declare type PDBElement = Anisou | Atom | Conect | Helix | HetAtm | Sheet | SSBond | Ter;
+export type PDBElement = Anisou | Atom | Conect | Helix | HetAtm | Sheet | SSBond | Ter;
 export declare enum PDBEnums {
     Anisou = "ANISOU",
     Atom = "ATOM",

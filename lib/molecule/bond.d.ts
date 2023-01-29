@@ -1,7 +1,12 @@
-export declare type BondSettings = {
-    color?: number[];
+export declare enum BondRepresentation {
+    singleColor = 0,
+    splitColor = 1
+}
+export type BondSettings = {
+    type: BondRepresentation;
+    colorValue?: number[];
 };
-export declare type BondArgs = {
+export type BondArgs = {
     id: string;
     firstId: string;
     secondId: string;

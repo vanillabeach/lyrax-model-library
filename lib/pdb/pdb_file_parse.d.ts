@@ -1,5 +1,5 @@
 import { PDBElement } from "./pdb_element";
-export declare type PDBParseSettings = {
+export type PDBParseSettings = {
     strictMode?: boolean;
     maxLineLength?: number;
 };

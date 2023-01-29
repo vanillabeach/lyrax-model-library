@@ -7,7 +7,7 @@
  */
 import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
-export declare type TerArgs = {
+export type TerArgs = {
     id: string;
     serialNumber?: number;
     residueName?: string;

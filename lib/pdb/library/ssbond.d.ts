@@ -6,7 +6,7 @@
  */
 import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
-export declare type SSBondArgs = {
+export type SSBondArgs = {
     id: string;
     serialNumber?: number;
     firstResidueName?: string;

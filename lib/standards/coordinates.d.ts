@@ -1,4 +1,4 @@
-export declare type CoordinatesIn3DArgs = {
+export type CoordinatesIn3DArgs = {
     x: number;
     y: number;
     z: number;

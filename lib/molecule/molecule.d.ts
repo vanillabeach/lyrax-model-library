@@ -1,8 +1,8 @@
-import Atom from "../pdb/library/atom";
-import PDBStructure from "../pdb/pdb_structure";
-import { CoordinatesIn3D } from "../standards/coordinates";
-import Bond, { BondSettings } from "./bond";
-export declare type MoleculeArgs = {
+import Atom from '../pdb/library/atom';
+import PDBStructure from '../pdb/pdb_structure';
+import { CoordinatesIn3D } from '../standards/coordinates';
+import Bond, { type BondSettings } from './bond';
+export type MoleculeArgs = {
     id: string;
     atoms?: Atom[];
     atomBonds?: Bond[];
@@ -12,7 +12,6 @@ export default class Molecule {
     id: string;
     atoms: Atom[];
     atomBonds: Bond[];
-    private coordinates?;
     constructor(args: MoleculeArgs);
     static fromPDBStructure(id: string, pdbStructure: PDBStructure, coordinates?: CoordinatesIn3D): Molecule;
     addAtom(atom: Atom): this;

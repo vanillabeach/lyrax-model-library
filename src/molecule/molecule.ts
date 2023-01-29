@@ -1,8 +1,8 @@
-import Atom from "../pdb/library/atom";
-import Conect from "../pdb/library/conect";
-import PDBStructure from "../pdb/pdb_structure";
-import { CoordinatesIn3D } from "../standards/coordinates";
-import Bond, { BondSettings } from "./bond";
+import Atom from '../pdb/library/atom';
+import Conect from '../pdb/library/conect';
+import PDBStructure from '../pdb/pdb_structure';
+import { CoordinatesIn3D } from '../standards/coordinates';
+import Bond, { type BondSettings } from './bond';
 
 export type MoleculeArgs = {
   id: string;
@@ -15,16 +15,11 @@ export default class Molecule {
   id: string;
   atoms: Atom[];
   atomBonds: Bond[];
-  private coordinates?: CoordinatesIn3D;
 
   constructor(args: MoleculeArgs) {
     this.id = args.id;
     this.atoms = args.atoms || [];
     this.atomBonds = args.atomBonds || [];
-
-    if (args.coordinates) {
-      this.coordinates = args.coordinates;
-    }
 
     return this;
   }

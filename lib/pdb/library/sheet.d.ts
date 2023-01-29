@@ -7,7 +7,7 @@
  */
 import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
-export declare type SheetArgs = {
+export type SheetArgs = {
     id: string;
     strandNumber?: number;
     identifier?: string;

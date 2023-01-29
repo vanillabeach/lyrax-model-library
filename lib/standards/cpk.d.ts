@@ -3,7 +3,7 @@
  *
  * See https://en.wikipedia.org/wiki/CPK_coloring
  */
-declare type CPKType = {
+type CPKType = {
     [key: string]: number[];
 };
 export declare const CPK: CPKType;

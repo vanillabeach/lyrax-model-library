@@ -9,7 +9,7 @@
  */
 import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
-export declare type ConectArgs = {
+export type ConectArgs = {
     id: string;
     serial1?: number;
     serial2?: number;

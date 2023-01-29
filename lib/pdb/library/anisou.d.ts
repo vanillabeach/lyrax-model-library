@@ -5,7 +5,7 @@
  */
 import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
-export declare type AnisouArgs = {
+export type AnisouArgs = {
     id: string;
     serialNumber?: number;
     name?: string;

@@ -1,5 +1,11 @@
+export enum BondRepresentation {
+  singleColor,
+  splitColor,
+}
+
 export type BondSettings = {
-  color?: number[];
+  type: BondRepresentation;
+  colorValue?: number[];
 };
 
 export type BondArgs = {
@@ -20,5 +26,14 @@ export default class Bond {
     this.firstId = args.firstId;
     this.secondId = args.secondId;
     this.settings = args.settings;
+
+    if (
+      args.settings?.type === BondRepresentation.singleColor &&
+      args.settings?.colorValue === undefined
+    ) {
+      throw Error(
+        'You have specified a "single color" value for a bond but have not provided the color.'
+      );
+    }
   }
 }

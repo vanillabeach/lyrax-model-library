@@ -6,7 +6,7 @@
  */
 import { PDBEnums } from '../pdb_element';
 import PDBPrimitive from '../pdb_primitive';
-export declare type HelixArgs = {
+export type HelixArgs = {
     id: string;
     serialNumber?: number;
     identifier?: string;

@@ -6,7 +6,7 @@
  */
 import { PDBEnums } from "../pdb_element";
 import PDBPrimitive from "../pdb_primitive";
-export declare type AtomArgs = {
+export type AtomArgs = {
     id: string;
     serialNumber?: number;
     name?: string;
